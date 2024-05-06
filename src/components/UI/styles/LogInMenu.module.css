@@ -1,0 +1,28 @@
+.menu {
+    display: flex;
+    flex-direction: row;
+}
+
+.menu_list {
+    color: #fefefe;
+    text-decoration: none;
+    font-family: "Karla", sans-serif;
+    font-size: 1.1rem;
+    padding: 10px 25px;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+}
+
+.menu_list.active::before {
+    content: "";
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    border-bottom: 1px solid #fefefe;
+}
+
+.menu_list:hover {
+    transform: translateY(-3px);
+}

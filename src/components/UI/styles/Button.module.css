@@ -1,0 +1,45 @@
+.btn {
+    min-height: 48px;
+    text-align: center;
+    letter-spacing: -0.02em;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 32px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+li .btn {
+    font-weight: 700;
+    border: 0px;
+}
+
+.black_btn {
+    color: #fff;
+    background-color: #160042;
+    border: 1px solid #160042;
+}
+
+.black_btn:hover {
+    background-color: #282556;
+    border-color: #282556;
+}
+
+.white_btn {
+    color: #160042;
+    background-color: #fff;
+    border: 1px solid #e4e6f1;
+}
+
+li .white_btn {
+    background-color: inherit;
+}
+
+.white_btn:hover {
+    background-color: #f3f5fb;
+    border-color: transparent;
+}
