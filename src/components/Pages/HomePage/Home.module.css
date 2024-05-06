@@ -3,7 +3,22 @@
     width: 100%;
     flex-direction: column;
     padding-top: 160px;
-    height: 1000vh;
+    
+}
+
+body::-webkit-scrollbar {
+    width: 12px;               /* ширина всей полосы прокрутки */
+}
+  
+body::-webkit-scrollbar-track {
+    background: #f3f5fb;        /* цвет зоны отслеживания */
+    border-radius: 4px;
+}
+  
+body::-webkit-scrollbar-thumb {
+    background-color: #bcbec4;    /* цвет бегунка */
+    border-radius: 4px;       /* округлось бегунка */
+    border: none;  /* отступ вокруг бегунка */
 }
 
 .top_header {
@@ -254,4 +269,37 @@ section.background {
 
 .chat_photo img {
     width: 100%;
+}
+
+
+.footer {
+    margin-top: 100px;
+    background-image: linear-gradient(to right, var(--tw-gradient-stops));
+    --tw-gradient-to: #160042;
+    --tw-gradient-from: #1565c0;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+    width: 100%;
+    margin-bottom: 0;
+    padding: 20px;
+    color: #fefefe;
+    font-family: "Karla", sans-serif;
+}
+
+.footer_text {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.point {
+    color: red;
+}
+
+.footer_text_span {
+    font-size: 1rem;
 }

@@ -32,12 +32,6 @@ const Header: React.FC = () => {
                     <nav>
                         <ul>
                             <li>
-                                <Button color={ButtonColors.White} text='Примеры' />
-                            </li>
-                            <li>
-                                <Button color={ButtonColors.White} text='Документация' />
-                            </li>
-                            <li>
                                 <Button color={ButtonColors.Black} text='Войти' href={login ? '/generate-test' : './log-in'} />
                             </li>
                         </ul>

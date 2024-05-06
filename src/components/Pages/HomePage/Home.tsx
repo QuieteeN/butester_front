@@ -135,6 +135,19 @@ const Home: React.FC = () => {
                     </article>
                 </Wrapper>
             </main>
+            <footer className={classes.footer}>
+                <Wrapper direction={Directions.Row}>
+                    <p className={classes.footer_text}>
+                        <span className={classes.footer_text_span}>© 2021</span>
+                        <span className={classes.logo}>
+                            <span>
+                                bu<span className={classes.point}>.</span>Tester
+                            </span>
+                        </span>
+                        <span className={classes.footer_text_span}>Все права защищены</span>
+                    </p>
+                </Wrapper>
+            </footer>
         </>
     );
 };
