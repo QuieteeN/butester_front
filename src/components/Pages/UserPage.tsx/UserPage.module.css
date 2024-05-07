@@ -98,6 +98,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: row;
+    position: relative;
 }
 
 .loading .dot {
@@ -317,7 +318,7 @@ textarea::-webkit-scrollbar {  /* нестандартный псевдоэле�
 
 .btnBox span {
     display: inline-flex;
-    margin-left: 10px;
+    margin-left: 15px;
     align-items: center;
 }
 

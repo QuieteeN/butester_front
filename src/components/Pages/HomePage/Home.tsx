@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-pascal-case */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Wrapper from "../Wrapper";
 import classes from "./Home.module.css";
 import Header from "../../UI/Header";
@@ -12,6 +12,20 @@ import Icons from "./../../icons/index";
 
 const Home: React.FC = () => {
 
+    const [login, setLogin] = useState<string | null>("");
+    
+    useEffect(() => {
+        try {
+            const token = localStorage.getItem("token");
+            if (token) {
+                const username = localStorage.getItem("login");
+                setLogin(username);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
+
     return (
         <>
             <Header />
@@ -22,12 +36,11 @@ const Home: React.FC = () => {
                         Платформа с ИИ для тестов
                     </h1>
                     <p className={classes.section_description}>
-                        Доступ к разнообразному спектру передовых моделей: от продвинутых языковых моделей до мощных
-                        моделей изображений и т. д.
+                        Доступ к разнообразному спектру передовых моделей: продвинутые языковые модели вам в помощь для генерации тестов
                     </p>
                     <p className={classes.btns}>
-                        <Button color={ButtonColors.Black} text='Начать' href="/generate-test" />
-                        <Button color={ButtonColors.White} text='Создать' href="/create-test" />
+                        <Button color={ButtonColors.Black} text='Начать' href={login ? '/generate-test' : '/log-in'} />
+                        <Button color={ButtonColors.White} text='Попробовать' href={login ? '/create-test' : '/log-in'} />
                     </p>
                 </Wrapper>
 

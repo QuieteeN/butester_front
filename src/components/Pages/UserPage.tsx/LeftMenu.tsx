@@ -64,7 +64,7 @@ const LeftMenu: React.FC = () => {
     const testClickHandler = (idTest: number) => {
         dispatch(changeTestId(idTest))
         clickHandler('answer')
-        navigate('/test-info')
+        navigate(`/test-info/${idTest}`)
     }
 
 
@@ -145,23 +145,6 @@ const LeftMenu: React.FC = () => {
                                     onClick={() => testClickHandler(test.id)}
                                 >
                                     {test.id + ": " + (test.nameOfTest || "Без названия" )}
-                                </li>
-                            ))}
-                        </ul>
-                    </>}
-                    {usersTests.length > 0 && <>
-                        <h4 onClick={() => {
-                            setIsUsersTestListOpen(!isUsersTestListOpen);
-                            setIsSharedTestListOpen(false)
-                            setIsTestsListOpen(false);
-                        }} className={`${isUsersTestListOpen && classes.active}`} >Для Проверки</h4>
-                        <ul className={`${classes.tests} ${isUsersTestListOpen && classes.activeTests}`}>
-                            {usersTests.map((item: any) => (
-                                <li 
-                                    className={classes.test} 
-                                    key={item.id}
-                                >
-                                    {item.user.username + ": "+ item.testCase.id + (item.testCase.nameOfTest || "Без названия" )}
                                 </li>
                             ))}
                         </ul>
