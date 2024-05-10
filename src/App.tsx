@@ -13,6 +13,7 @@ import AnswerTestsPage from "./components/Pages/UserPage.tsx/AnswerTestsPage";
 import CheckTestsPage from "./components/Pages/UserPage.tsx/CheckTestsPage";
 import TestPage from "./components/Pages/UserPage.tsx/TestPage";
 import CreateTestPage from "./components/Pages/UserPage.tsx/CreateTestPage";
+import LastTestPage from "./components/Pages/UserPage.tsx/LastTestPage";
 
 function App() {
     return (
@@ -30,6 +31,7 @@ function App() {
                     <Route path='/check-tests' Component={CheckTestsPage} />
                     <Route path='/test-info/:testId' Component={TestPage} />
                     <Route path='/create-test' Component={CreateTestPage} />
+                    <Route path='/test-info/lastTest' Component={LastTestPage} />
                 </Routes>
             </BrowserRouter>
     );

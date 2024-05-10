@@ -82,8 +82,7 @@ const CreateTestPage: React.FC = () => {
             console.log(res);
             console.log(body);
 
-            navigate('/test-info')
-            window.location.reload()
+            navigate('/test-info/lastTest')
         } catch (error) {
             console.error(error);
         }

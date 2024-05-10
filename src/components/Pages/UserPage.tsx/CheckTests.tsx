@@ -6,7 +6,6 @@ import { useGetTestByIdQuery } from "../../../services/testsApi";
 import { useUserCheckedQuery } from "../../../services/teacherApi";
 import Icons from './../../icons'
 import { useNavigate } from "react-router-dom";
-import { log } from "console";
 
 // Типы для аргументов компонентов
 interface ICheckTests {

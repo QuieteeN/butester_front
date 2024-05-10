@@ -110,8 +110,7 @@ const GenerateTestPage: React.FC = () => {
                     }
                 }
 
-                navigate('/tests')
-                window.location.reload()
+                navigate('/test-info/lastTest')
             } catch (error) {
                 console.error(error);
             }
