@@ -6,6 +6,7 @@ import { useGetTestByIdQuery } from "../../../services/testsApi";
 import { useUserCheckedQuery } from "../../../services/teacherApi";
 import Icons from './../../icons'
 import { useNavigate } from "react-router-dom";
+import { log } from "console";
 
 // Типы для аргументов компонентов
 interface ICheckTests {
@@ -191,7 +192,6 @@ const CheckTests: React.FC<ICheckTests> = ({answers} : ICheckTests) => {
 
     const AddListComponent: React.FC<{test: any}> = ({test}: {test: any}) => {
 
-        const showAnswerQuery = useShowAnswerOfUserQuery({idCase: test.testCase.id, idUser: test.user.id})
         const getTestById =  useGetTestByIdQuery({id: test.testCase.id});
 
         return (
@@ -199,20 +199,23 @@ const CheckTests: React.FC<ICheckTests> = ({answers} : ICheckTests) => {
                 className={classes.answerTest} 
                 onClick={() => clickHandler(test.user.id, test.testCase.id, test.user.username)} 
                 key={test.id}
-            >{`${test.user.username}: ${test.testCase.nameOfTest || 'Без названия'} -  Результат ${
-                showAnswerQuery.data?.body.filter((item: any) => item.rightAnswer === true).length}/${getTestById.data?.testTaskList.length}`}</li>
+            >{`${test.user.username}: ${test.testCase.nameOfTest || 'Без названия'} -  Результат 
+                 ${
+                 test.pointTest}/${test.countQuestions || getTestById.data?.testTaskList.length }
+                `}</li>
         )
     }
 
     const AddListComponentSelf: React.FC<{test: any}> = ({test}: {test: any}) => {
         const getTestById =  useGetTestByIdQuery({id: test.testCase.id});
+        console.log(test)
 
         return (
             <li 
                 className={classes.answerTest} 
                 onClick={() => navigate(`/passing-test/${test.testCase.url}`)} 
                 key={test.id}
-            >{`${test.user.username}: ${test.testCase.nameOfTest || 'Без названия'} - Результат: ${test.pointTest}/${getTestById.data?.testTaskList.length}`}</li>
+            >{`${test.user.username}: ${test.testCase.nameOfTest || 'Без названия'} - Результат: ${test.pointTest}/${test.countQuestions || getTestById.data?.testTaskList.length}`}</li>
         )
     }
 
