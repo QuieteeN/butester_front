@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-pascal-case */
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import AuthInput from "../../UI/AuthInput";
 import AuthButton from "../../UI/AuthButton";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,7 +15,10 @@ const LogIn: React.FC = () => {
     const [authUser] = useAuthUserMutation();
     const dispatch = useDispatch();
     const [isEye, setIsEye] = useState(true);
+    const [isError, setIsError] = useState<boolean>(false);
     const navigate = useNavigate();
+
+    const errorRef = useRef<HTMLSpanElement>(null);
 
     function onClickEye(value: boolean) {
         setIsEye(value);
@@ -31,12 +34,40 @@ const LogIn: React.FC = () => {
 
     const authHandler = async () => {
         const visitor = {
-            "username":user.username,
+            "username": user.username,
             "password": user.password,
+        }
+
+        if (errorRef.current) {
+            if (user.username === "") {
+                errorRef.current.innerText = 'Введите логин'
+                setIsError(true);
+                return;
+            }
+            if (user.password === "") {
+                errorRef.current.innerText = 'Введите пароль'
+                setIsError(true);
+                return;
+            }
         }
 
         try {
             const result = await authUser(visitor);
+
+            if ('error' in result) {
+                if ('status' in  result.error && 'data' in result.error) {
+                    if (result.error.status === 401 && errorRef.current) {
+                        errorRef.current.innerText = 'Неправильный логин или пароль'
+                        setIsError(true);
+                        return;
+                    }
+                    if (result.error.status === 500 && errorRef.current) {
+                        errorRef.current.innerText = 'Проблема с сервером'
+                        setIsError(true);
+                        return;
+                    }
+                }
+            } 
 
             if ('data' in result) {
                 const token = result.data;
@@ -74,6 +105,7 @@ const LogIn: React.FC = () => {
                     Забыли пароль?
                 </Link>
             </div>
+            <span ref={errorRef} className={`${classes.error} ${isError ? classes.active : ''}`}></span>
             <AuthButton text='Войти' clickHandler={authHandler} />
             <p className={classes.auth_foot}>
                 Нету аккаунта?{" "}
