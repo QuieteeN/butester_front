@@ -186,7 +186,7 @@ const TestPage: React.FC = () => {
                             </span>
                         </p>}
                         <span title="Скачать" onClick={() => generateTestDoc(currentTest.data)}><Icons.arrowBack classes={`${classes.check} ${classes.upload}`} /> </span>
-                        <span title="Редактировать тест" onClick={() => navigate(`/change-test/${testId}`)} ><Icons.modifyProfit classes={classes.check + ' ' + classes.ban} /></span>
+                        {currentTest?.data?.url ? '' : <span title="Редактировать тест" onClick={() => navigate(`/change-test/${testId}`)} ><Icons.modifyProfit classes={classes.check + ' ' + classes.ban} /></span>}
                         <span title="Выйти" onClick={() => navigate('/tests')} ><Icons.xMark classes={classes.check + ' ' + classes.ban} /></span>
                     </div>
                 </h2>
