@@ -159,10 +159,10 @@ const GenerateTestPage: React.FC = () => {
                         Данный искуственный интелект создает тест на основе написанного текста
                     </div>
                     <div className={`${classes.infoText} ${isSend ? classes.infoNone : ''}`}>
-                        Текст должен иметь длину в диапозоне от 50 до 2300 символов
+                        Текст должен иметь длину в диапазоне от 50 до 2300 символов
                     </div>
                     <div className={`${classes.infoText} ${isSend ? classes.infoNone : ''}`}>
-                        Не зубудьте написать название теста.
+                        Не забудьте написать название теста.
                     </div>
                 </div>
                 <div 
