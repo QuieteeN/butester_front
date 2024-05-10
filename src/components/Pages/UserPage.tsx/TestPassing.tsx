@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-pascal-case */
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useFindTestByUrlQuery, usePassingTestMutation } from "../../../services/userApi";
 import classes from "./UserPage.module.css"
 import { Params, useNavigate, useParams } from "react-router-dom";
@@ -23,7 +23,6 @@ const TestPassing: React.FC = () => {
     const params: Readonly<Params<string>> = useParams();
 
     const [isPassing, setIsPassing] = useState(false);  // Отправлен или нет
-    const [isError, setIsError] = useState(false);
 
     const currentTest = useFindTestByUrlQuery({ url: params.testUrl || '' });   // Получаем тест по URL
     const [passingTest] = usePassingTestMutation();     // Запрос для отправки ответов
@@ -34,8 +33,9 @@ const TestPassing: React.FC = () => {
     const TestComponent: React.FC<ITextComponent> = ({ questions } : ITextComponent) => {
         const [answers, setAnswers] = useState(new Map());  // Ответы на вопросы
 
-        const errorRef = useRef<HTMLSpanElement>(null);
+        const [error, setError] = useState<string | null>(null);
         const navigate = useNavigate()
+        console.log('Create')
         
         // Обработка выбора ответа
         const handleAnswerChange = (questionId: number, selectedIndex: number) => {
@@ -45,39 +45,32 @@ const TestPassing: React.FC = () => {
         };
         
         // Обработка отправки ответа
-        const handleSubmit = async () => {
-            const data = {
-                url: params.testUrl || '',
-                testAnswers: Object.fromEntries(answers.entries()),
-            }
-            if (answers.size === questions.length) {
-                try {
-                    const result = await passingTest(data);
-                    if ('error' in result) {
-                        if ('status' in  result.error && 'data' in result.error) {
-                            if (result.error.status === 400 && errorRef.current) {
-                                errorRef.current.innerText = 'Ответьте на все вопросы!'
-                                setIsError(true);
-                                return;
-                            }
-                        }
-                    } 
-                    setIsError(false);
-                    setIsPassing(false);
-                    navigate('/tests');
-                    window.location.reload();
-                } catch (e) {
-                    console.error(e);
-                }
-                // Отправить ответы на сервер или выполнить другие действия
-                console.log('Ответы:', answers);
-            } else {
-                if (errorRef.current) {
-                    errorRef.current.innerText = 'Ответьте на все вопросы!'
-                    setIsError(true);
-                    return;
-                }
-            }
+        const handleSubmit = async (e: any) => {
+          e.preventDefault();
+          const data = {
+              url: params.testUrl || '',
+              testAnswers: Object.fromEntries(answers.entries()),
+          }
+          if (answers.size === questions.length) {
+              try {
+                  const result = await passingTest(data);
+                  if ('error' in result) {
+                      if ('status' in  result.error && 'data' in result.error) {
+                          if (result.error.status === 400) {
+                              setError('Ответьте на все вопросы!');
+                              return;
+                          }
+                      }
+                  } 
+                  setIsPassing(false);
+                  navigate('/check-tests');
+              } catch (e) {
+                  console.error(e);
+              }
+              console.log('Ответы:', answers);
+          } else {
+              setError('Ответьте на все вопросы!');
+          }
         };
       
         return (
@@ -92,8 +85,8 @@ const TestPassing: React.FC = () => {
                 }
               />
             ))}
-            <span ref={errorRef} className={`${classes.modalMessage} ${isError ? classes.active : ''}`}></span>
-            <button className={classes.runTest} onClick={handleSubmit}>Отправить ответы</button>
+            {error && <span className={`${classes.modalMessage} ${classes.active}`}>{error}</span>}
+            <span className={classes.runTest} onClick={handleSubmit}>Отправить ответы</span>
           </div>
         );
       };
@@ -112,6 +105,7 @@ const TestPassing: React.FC = () => {
                   name={question.id}
                   value={option}
                   checked={option.id === selectedAnswer}
+                  onChange={() => onAnswerChange(option.id)}
                 />
                 <label className={classes.radioLabel} htmlFor={`${question.id}-${option.id}`}>{option.text}</label>
               </div>
