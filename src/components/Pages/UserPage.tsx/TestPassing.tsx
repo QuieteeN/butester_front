@@ -64,6 +64,7 @@ const TestPassing: React.FC = () => {
                   } 
                   setIsPassing(false);
                   navigate('/check-tests');
+                  window.location.reload();
               } catch (e) {
                   console.error(e);
               }
